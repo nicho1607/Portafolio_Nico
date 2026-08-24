@@ -7,11 +7,11 @@
   --color-primary-light: #8b5cf6;
   --color-primary-dark: #6d28d9;
   --color-accent: #3b82f6;
-  --color-surface: rgba(255, 255, 255, 0.05);
-  --color-surface-hover: rgba(255, 255, 255, 0.08);
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-hover: rgba(255, 255, 255, 0.2);
   --color-muted: #94a3b8;
+  --color-surface: #ffffff0d;
+  --color-surface-hover: #ffffff14;
+  --color-border: #ffffff1a;
+  --color-border-hover: #ffffff33;
   --font-sans: var(--font-inter), "Plus Jakarta Sans", system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), "Fira Code", monospace;
 }

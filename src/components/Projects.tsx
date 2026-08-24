@@ -1,4 +1,5 @@
-import { ExternalLink, BarChart3, PawPrint, Server } from "lucide-react";
+import Link from "next/link";
+import { ExternalLink, BarChart3, PawPrint, Server, ArrowRight } from "lucide-react";
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -15,15 +16,17 @@ interface Project {
   icon: React.ElementType;
   link?: string;
   github?: string;
+  detailPage?: string;
 }
 
 const projects: Project[] = [
   {
-    title: "Automatización Operativa y Dashboards",
+    title: "Sistema Digital de Gestión Operativa para Cocina",
     description:
-      "Automatización de 40+ formularios operativos de cocina e integración de tableros de control en tiempo real (Power BI) para monitoreo de inventarios y temperaturas en el Country Club Ejecutivo.",
-    tags: ["Next.js", "TypeScript", "Prisma", "Power Platform"],
+      "Transformación digital completa de los procesos operativos de cocina del Country Club Ejecutivo. Sistema web full-stack para la recolección, auditoría y trazabilidad de registros sanitarios y operativos.",
+    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "API Routes"],
     icon: BarChart3,
+    detailPage: "/proyectos/cocina",
   },
   {
     title: "Sistema Web de Gestión para Guardería Canina",
@@ -119,6 +122,17 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
+
+                {/* Detail Link */}
+                {project.detailPage && (
+                  <Link
+                    href={project.detailPage}
+                    className="inline-flex items-center gap-2 mt-4 text-sm font-medium text-primary-light hover:text-primary transition-colors group/link"
+                  >
+                    Ver caso completo
+                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
+                )}
               </div>
             );
           })}

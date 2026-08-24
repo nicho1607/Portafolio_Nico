@@ -80,6 +80,7 @@ export default function Hero() {
                   src="/profile.jpg"
                   alt="Nicolás Castañeda Betancur"
                   fill
+                  sizes="(max-width: 640px) 192px, (max-width: 1024px) 224px, 256px"
                   className="object-cover"
                   priority
                 />

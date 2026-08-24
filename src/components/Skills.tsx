@@ -1,8 +1,10 @@
 import { Code2, Database, Cloud } from "lucide-react";
 
+type SkillLevel = "Avanzado" | "Intermedio" | "Medio" | "Básico";
+
 interface Skill {
   name: string;
-  level: number;
+  level: SkillLevel;
 }
 
 interface SkillCategory {
@@ -11,38 +13,45 @@ interface SkillCategory {
   skills: Skill[];
 }
 
+const levelColors: Record<SkillLevel, string> = {
+  Avanzado: "bg-primary text-white",
+  Intermedio: "bg-accent text-white",
+  Medio: "bg-primary-light/60 text-white",
+  Básico: "bg-muted/40 text-foreground",
+};
+
 const skillCategories: SkillCategory[] = [
   {
     title: "Lenguajes y Frameworks",
     icon: Code2,
     skills: [
-      { name: "TypeScript", level: 85 },
-      { name: "JavaScript", level: 90 },
-      { name: "Python", level: 80 },
-      { name: "Next.js", level: 85 },
-      { name: "Node.js", level: 75 },
-      { name: "React", level: 85 },
-      { name: "Tailwind CSS", level: 90 },
+      { name: "TypeScript", level: "Avanzado" },
+      { name: "JavaScript", level: "Avanzado" },
+      { name: "Python", level: "Intermedio" },
+      { name: "Next.js", level: "Avanzado" },
+      { name: "Node.js", level: "Intermedio" },
+      { name: "React", level: "Avanzado" },
+      { name: "Tailwind CSS", level: "Avanzado" },
     ],
   },
   {
     title: "Bases de Datos & ORM",
     icon: Database,
     skills: [
-      { name: "Prisma", level: 75 },
-      { name: "PostgreSQL", level: 80 },
-      { name: "SQL Server", level: 75 },
+      { name: "Prisma", level: "Intermedio" },
+      { name: "PostgreSQL", level: "Intermedio" },
+      { name: "SQL Server", level: "Intermedio" },
     ],
   },
   {
     title: "Herramientas & Cloud",
     icon: Cloud,
     skills: [
-      { name: "Git & GitHub", level: 90 },
-      { name: "Power Apps", level: 85 },
-      { name: "Power Automate", level: 85 },
-      { name: "Power BI", level: 80 },
-      { name: "AWS (Básico)", level: 50 },
+      { name: "Git & GitHub", level: "Avanzado" },
+      { name: "Power Apps", level: "Avanzado" },
+      { name: "Power Automate", level: "Avanzado" },
+      { name: "Power BI", level: "Intermedio" },
+      { name: "AWS", level: "Básico" },
     ],
   },
 ];
@@ -86,23 +95,20 @@ export default function Skills() {
                 </div>
 
                 {/* Skills List */}
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {category.skills.map((skill) => (
-                    <div key={skill.name}>
-                      <div className="flex justify-between items-center mb-1.5">
-                        <span className="text-sm text-foreground font-medium">
-                          {skill.name}
-                        </span>
-                        <span className="text-xs text-muted font-mono">
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
-                        <div
-                          className="h-full rounded-full bg-gradient-to-r from-primary to-accent transition-all duration-500"
-                          style={{ width: `${skill.level}%` }}
-                        />
-                      </div>
+                    <div
+                      key={skill.name}
+                      className="flex items-center justify-between"
+                    >
+                      <span className="text-sm text-foreground font-medium">
+                        {skill.name}
+                      </span>
+                      <span
+                        className={`px-3 py-1 text-xs font-medium rounded-full ${levelColors[skill.level]}`}
+                      >
+                        {skill.level}
+                      </span>
                     </div>
                   ))}
                 </div>

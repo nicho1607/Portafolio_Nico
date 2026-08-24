@@ -16,12 +16,9 @@ const experiences: ExperienceItem[] = [
     location: "Medellín, Colombia",
     period: "Feb 2026 - Ago 2026",
     description: [
-      "Automatización de 40+ formularios operativos de cocina con Power Apps y Power Automate.",
-      "Integración de tableros de control en tiempo real con Power BI para monitoreo de inventarios y temperaturas.",
-      "Desarrollo de aplicaciones web con Next.js y TypeScript para optimización de procesos internos.",
-      "Diseño de flujos automatizados conectando múltiples fuentes de datos con Prisma y PostgreSQL.",
+      "Diseñé y desarrollé una plataforma web para la digitalización de 40 procesos operativos de cocina e inventarios, utilizando Next.js, TypeScript, Prisma y PostgreSQL, lo que permitió automatizar la gestión de controles relacionados con inventarios, temperaturas y recambio de aceite, eliminando el uso de formularios físicos y reduciendo procesos manuales.",
     ],
-    tags: ["Next.js", "TypeScript", "Power Platform", "Prisma", "Power BI"],
+    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Power BI"],
   },
   {
     role: "Tutor de Programación Python",
