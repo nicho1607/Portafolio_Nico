@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Urbanist } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const urbanist = Urbanist({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
+  variable: "--font-urbanist",
   display: "swap",
 });
 
@@ -47,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+        className={`${urbanist.variable} font-sans antialiased`}
       >
         {children}
       </body>

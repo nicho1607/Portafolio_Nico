@@ -1,84 +1,53 @@
-import { FileText, Users, FolderKanban, Star } from "lucide-react";
-
 const stats = [
-  {
-    icon: FileText,
-    value: "40+",
-    label: "Formularios y procesos automatizados",
-  },
-  {
-    icon: Users,
-    value: "30+",
-    label: "Estudiantes tutorados en Python",
-  },
-  {
-    icon: FolderKanban,
-    value: "15+",
-    label: "Proyectos prácticos realizados",
-  },
-  {
-    icon: Star,
-    value: "95%",
-    label: "Satisfacción en mentorías",
-  },
+  { value: "40", label: "procesos operativos digitalizados" },
+  { value: "30+", label: "estudiantes tutorados en Python" },
+  { value: "15+", label: "proyectos prácticos realizados" },
+  { value: "95%", label: "de satisfacción en mentorías" },
 ];
 
 export default function About() {
   return (
-    <section id="sobre-mi" className="py-20 sm:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <span className="text-sm font-medium text-primary-light tracking-wide uppercase">
-            Sobre mí
-          </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold">
-            Conoce un poco más sobre{" "}
-            <span className="gradient-text">quién soy</span>
-          </h2>
-        </div>
+    <section id="sobre-mi" className="py-20 sm:py-28 border-t border-line">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[14rem_1fr] gap-8 lg:gap-16">
+        <h2 className="text-3xl font-bold tracking-tight">Sobre mí</h2>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Text Content */}
-          <div className="space-y-6">
-            <p className="text-muted text-lg leading-relaxed">
-              Soy un <span className="text-foreground font-medium">Ingeniero Informático</span> apasionado
-              por la resolución de problemas y la optimización de procesos corporativos.
-              Mi enfoque está en crear soluciones tecnológicas que generen impacto real en las organizaciones.
+        <div>
+          <div className="max-w-[65ch] space-y-5 text-lg leading-relaxed text-fg-soft">
+            <p>
+              Soy Ingeniero Informático y me gusta resolver problemas
+              concretos de las organizaciones: el formulario que se pierde, el
+              reporte que se arma a mano cada semana, el dato que nadie puede
+              consultar a tiempo.
             </p>
-            <p className="text-muted text-lg leading-relaxed">
-              Con experiencia en <span className="text-foreground font-medium">desarrollo Full Stack</span>,{" "}
-              <span className="text-foreground font-medium">automatización con Power Platform</span> y{" "}
-              <span className="text-foreground font-medium">enseñanza de programación</span>, combino
-              habilidades técnicas con una visión estratégica para entregar software eficiente,
-              escalable y centrado en el usuario.
+            <p>
+              Trabajo como desarrollador Full Stack con Next.js y TypeScript, y
+              automatizo procesos con Power Platform. También he enseñado
+              programación, así que sé explicar lo técnico a quien no lo es.
             </p>
-            <p className="text-muted text-lg leading-relaxed">
-              Desde Medellín, Colombia, trabajo con equipos multidisciplinarios para transformar
-              ideas en productos digitales funcionales, siempre buscando la excelencia en cada línea de código.
+            <p>
+              Estoy en Medellín, Colombia, y trabajo con equipos de
+              operaciones, administración y tecnología.
             </p>
           </div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {stats.map((stat) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  key={stat.label}
-                  className="glass rounded-xl p-6 text-center hover:bg-surface-hover hover:border-border-hover transition-all duration-300 hover:-translate-y-1 glow-purple-hover"
-                >
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 mb-4">
-                    <Icon className="w-6 h-6 text-primary-light" />
-                  </div>
-                  <div className="text-3xl sm:text-4xl font-bold gradient-text mb-2">
+          <dl className="mt-14 grid grid-cols-2 md:grid-cols-4 border-t border-line">
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="pt-5 pb-2 pr-4 border-b md:border-b-0 border-line"
+              >
+                <dt className="sr-only">{stat.label}</dt>
+                <dd>
+                  <span className="block text-4xl font-extrabold tracking-tight text-lilac">
                     {stat.value}
-                  </div>
-                  <p className="text-sm text-muted leading-snug">{stat.label}</p>
-                </div>
-              );
-            })}
-          </div>
+                  </span>
+                  <span className="mt-1 block text-sm text-fg-soft leading-snug">
+                    {stat.label}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>

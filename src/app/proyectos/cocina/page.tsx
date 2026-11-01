@@ -1,36 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  CheckCircle,
-  ClipboardList,
-  History,
-  FileBarChart,
-  Users,
-  Layers,
-  Shield,
-} from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 const screenshots = [
   {
     src: "/projects/cocina/home.png",
-    alt: "Portal principal - Módulos de Formularios, Historial y Reportes",
-    caption: "Portal de inicio con acceso a los tres módulos principales",
+    alt: "Portal principal con los módulos de Formularios, Historial y Reportes",
+    caption: "Portal de inicio con acceso a los tres módulos.",
   },
   {
     src: "/projects/cocina/formularios.png",
     alt: "Catálogo de formularios organizados por área operativa",
-    caption: "Catálogo de formularios por área: Cocina Principal, Panadería, Steward, Cafeterías",
+    caption:
+      "Catálogo de formularios por área: Cocina Principal, Panadería, Steward y Cafeterías.",
   },
   {
     src: "/projects/cocina/historial.png",
     alt: "Historial de registros con estados de verificación",
-    caption: "Historial con trazabilidad, fechas, estados y acciones de verificación",
+    caption: "Historial con fechas, estados y acciones de verificación.",
   },
   {
     src: "/projects/cocina/reportes.png",
-    alt: "Módulo de reportes con filtros avanzados",
-    caption: "Reportes con filtros por estado, fecha y categoría con control de acceso",
+    alt: "Módulo de reportes con filtros",
+    caption: "Reportes filtrables por estado, fecha y categoría, con acceso controlado.",
   },
 ];
 
@@ -41,283 +33,208 @@ const techStack = [
   "PostgreSQL",
   "Tailwind CSS",
   "Next.js API Routes",
-  "Autenticación por Roles",
+  "Autenticación por roles",
+];
+
+const stakeholders = [
+  {
+    title: "Personal operativo",
+    description:
+      "Entrevisté al Chef, al Sub-Chef y al Analista de Operaciones para entender el flujo real de los turnos y cómo diligenciaban cada formulario en la cocina.",
+  },
+  {
+    title: "Desarrollo Organizacional",
+    description:
+      "Levanté los lineamientos normativos y la estructura formal para que la versión digital cumpliera los estándares y políticas de la organización.",
+  },
+];
+
+const modules = [
+  {
+    title: "Catálogo de formularios",
+    description: "Plantillas organizadas por área operativa y tipo de control.",
+  },
+  {
+    title: "Historial de registros",
+    description: "Cada registro con su estado: sin verificar o verificado.",
+  },
+  {
+    title: "Reportes",
+    description: "Filtros por fecha, estado y categoría para usuarios autenticados.",
+  },
 ];
 
 const results = [
   {
-    icon: CheckCircle,
-    title: "100% Digitalización",
-    description: "Eliminación total del uso de papel en los controles operativos de cocina.",
+    title: "Cero papel",
+    description: "Los controles operativos de cocina se diligencian solo en el sistema.",
   },
   {
-    icon: Shield,
-    title: "Trazabilidad y Auditoría",
+    title: "Trazabilidad",
     description:
-      'Visibilidad inmediata de registros con estados de validación ("Sin verificar", "Verificado").',
+      "Los supervisores ven cada registro al instante y lo marcan como verificado.",
   },
   {
-    icon: History,
-    title: "Optimización de Tiempos",
+    title: "Menos tiempo administrativo",
     description:
-      "Disminución significativa en el tiempo dedicado a llenar formularios manuales y consolidar reportes.",
+      "Ya no hay que llenar formularios a mano ni consolidar reportes manualmente.",
   },
 ];
 
+function Block({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="py-14 border-t border-line grid lg:grid-cols-[14rem_1fr] gap-6 lg:gap-16">
+      <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
+      <div>{children}</div>
+    </section>
+  );
+}
+
 export default function ProyectoCocinaPage() {
   return (
-    <main className="min-h-screen pt-24 pb-20">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back Link */}
+    <main className="min-h-screen pt-28 pb-24">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <Link
           href="/#proyectos"
-          className="inline-flex items-center gap-2 text-muted hover:text-primary-light transition-colors mb-8 group"
+          className="inline-flex items-center gap-2 text-fg-soft hover:text-fg transition-colors"
         >
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          Volver a Proyectos
+          <ArrowLeft className="w-4 h-4" />
+          Volver a proyectos
         </Link>
 
-        {/* Header */}
-        <div className="mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <ClipboardList className="w-4 h-4 text-primary-light" />
-            <span className="text-sm font-medium text-primary-light">
-              Country Club Ejecutivo
-            </span>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6">
-            Sistema Digital de Gestión y Control{" "}
-            <span className="gradient-text">Operativo para Cocina</span>
-          </h1>
-
-          <p className="text-lg text-muted max-w-3xl leading-relaxed">
-            Transformación digital completa de los procesos operativos de cocina,
-            eliminando el uso de papel mediante un sistema web full-stack diseñado
-            para la recolección, auditoría y trazabilidad de registros sanitarios y
-            operativos.
+        <header className="mt-10 pb-14">
+          <p className="inline-flex text-sm font-semibold text-green bg-green-wash px-3 py-1 rounded-full">
+            Country Club Ejecutivo, 2026
           </p>
-        </div>
+          <h1 className="mt-6 max-w-4xl font-extrabold tracking-[-0.035em] leading-[0.98] text-[clamp(2.4rem,6vw,4.5rem)]">
+            Sistema digital de gestión y control operativo para cocina
+          </h1>
+          <p className="mt-6 text-xl text-fg-soft max-w-[60ch] leading-relaxed">
+            Un sistema web full stack que reemplazó las planillas en papel de la
+            cocina para registrar, auditar y rastrear los controles sanitarios
+            y operativos.
+          </p>
+        </header>
 
-        {/* Screenshots Gallery */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">
-            <span className="gradient-text">Capturas</span> del Sistema
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {screenshots.map((shot) => (
-              <div
-                key={shot.src}
-                className="glass rounded-xl overflow-hidden hover:border-border-hover transition-all duration-300 hover:-translate-y-1 glow-purple-hover"
-              >
+        <div className="grid md:grid-cols-2 gap-x-6 gap-y-10 pb-16">
+          {screenshots.map((shot) => (
+            <figure key={shot.src}>
+              <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-line bg-plum">
                 <Image
                   src={shot.src}
                   alt={shot.alt}
-                  width={800}
-                  height={450}
-                  className="w-full h-auto object-cover object-top"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 560px"
+                  className="object-cover object-left-top"
                 />
-                <p className="px-4 py-3 text-sm text-muted">{shot.caption}</p>
+              </div>
+              <figcaption className="mt-3 text-sm text-fg-soft">
+                {shot.caption}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        <Block title="El problema">
+          <p className="text-lg leading-relaxed max-w-[65ch]">
+            Toda la gestión operativa —listas de chequeo, recepción de
+            mercancía, controles de temperatura, limpieza y seguridad en el
+            trabajo— se hacía a mano en papel. Se perdía información, no había
+            visibilidad en tiempo real para decidir y el personal operario y de
+            supervisión cargaba con mucho trabajo administrativo.
+          </p>
+        </Block>
+
+        <Block title="Mi rol">
+          <p className="text-lg leading-relaxed max-w-[65ch] text-fg-soft">
+            Lideré la investigación y el levantamiento de requisitos, trabajando
+            directamente con las personas involucradas:
+          </p>
+          <div className="mt-8 grid sm:grid-cols-2 gap-8">
+            {stakeholders.map((item) => (
+              <div key={item.title} className="border-t-2 border-line-strong pt-4">
+                <h3 className="font-bold text-lg">{item.title}</h3>
+                <p className="mt-2 text-fg-soft leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
-        </section>
+        </Block>
 
-        {/* El Desafío */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">
-            El <span className="gradient-text">Desafío</span>
-          </h2>
-          <div className="glass rounded-xl p-6 sm:p-8">
-            <p className="text-muted leading-relaxed text-lg">
-              Toda la gestión operativa —listas de chequeo, recepción de mercancía,
-              controles de temperatura, procesos de limpieza y seguridad en el
-              trabajo— se realizaba manualmente en papel. Esto generaba pérdida de
-              información, baja visibilidad en tiempo real para la toma de decisiones
-              y una carga administrativa alta para el personal operario y de
-              supervisión.
-            </p>
-          </div>
-        </section>
-
-        {/* Mi Rol */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">
-            Mi Rol y{" "}
-            <span className="gradient-text">Levantamiento de Requerimientos</span>
-          </h2>
-          <p className="text-muted leading-relaxed mb-6">
-            Para llevar a cabo la digitalización, lideré la fase de investigación e
-            ingeniería de requisitos trabajando directamente con las partes
-            interesadas:
+        <Block title="La solución">
+          <p className="text-lg leading-relaxed max-w-[65ch] text-fg-soft">
+            Diseñé y desarrollé una aplicación web responsiva con control de
+            acceso por roles.
           </p>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="glass rounded-xl p-6 hover:bg-surface-hover transition-all duration-300">
-              <div className="flex items-start gap-3 mb-3">
-                <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-primary/10">
-                  <Users className="w-5 h-5 text-primary-light" />
-                </div>
-                <h3 className="text-foreground font-semibold mt-1.5">
-                  Personal Operativo
-                </h3>
-              </div>
-              <p className="text-sm text-muted leading-relaxed">
-                Entrevisté al Chef, Sub-Chef y Analista de Operaciones para
-                comprender la dinámica diaria, el flujo real de trabajo en los turnos
-                y la manera en que diligenciaban cada formulario en el entorno de
-                cocina.
-              </p>
+          <dl className="mt-8 space-y-6 max-w-[65ch]">
+            <div>
+              <dt className="font-bold">Frontend</dt>
+              <dd className="mt-1 text-fg-soft leading-relaxed">
+                Next.js y TypeScript, con una interfaz pensada para el ritmo
+                rápido de la cocina y plantillas por área: Cocina Principal,
+                Panadería, Steward y Cafeterías.
+              </dd>
             </div>
-            <div className="glass rounded-xl p-6 hover:bg-surface-hover transition-all duration-300">
-              <div className="flex items-start gap-3 mb-3">
-                <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-primary/10">
-                  <Layers className="w-5 h-5 text-primary-light" />
-                </div>
-                <h3 className="text-foreground font-semibold mt-1.5">
-                  Desarrollo Organizacional
-                </h3>
-              </div>
-              <p className="text-sm text-muted leading-relaxed">
-                Levanté los lineamientos normativos y la estructura formal requerida
-                para garantizar que la versión digital cumpliera estrictamente con los
-                estándares y políticas de la organización.
-              </p>
+            <div>
+              <dt className="font-bold">Backend y base de datos</dt>
+              <dd className="mt-1 text-fg-soft leading-relaxed">
+                Next.js API Routes y Prisma ORM sobre PostgreSQL, con tipado
+                estricto, validación en el servidor y relaciones eficientes.
+              </dd>
             </div>
-          </div>
-        </section>
+          </dl>
 
-        {/* Solución Técnica */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">
-            La Solución{" "}
-            <span className="gradient-text">Técnica</span>
-          </h2>
-          <p className="text-muted leading-relaxed mb-6">
-            Diseñé y desarrollé una aplicación web escalable, responsiva y con
-            control de acceso por roles:
-          </p>
-
-          <div className="space-y-4 mb-8">
-            <div className="glass rounded-xl p-6">
-              <h3 className="text-foreground font-semibold mb-2 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                Frontend
-              </h3>
-              <p className="text-sm text-muted leading-relaxed">
-                Desarrollado con Next.js y TypeScript, ofreciendo una interfaz
-                intuitiva adaptada al flujo de trabajo rápido de la cocina (módulos
-                para la selección de plantillas por área como Cocina Principal,
-                Panadería, Steward, Cafeterías, etc.).
-              </p>
-            </div>
-            <div className="glass rounded-xl p-6">
-              <h3 className="text-foreground font-semibold mb-2 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-accent" />
-                Backend y Base de Datos
-              </h3>
-              <p className="text-sm text-muted leading-relaxed">
-                Implementado con Next.js API Routes y Prisma ORM, garantizando tipado
-                estricto de datos, validación en el lado del servidor y relaciones
-                eficientes en la base de datos.
-              </p>
-            </div>
-          </div>
-
-          {/* Módulos */}
-          <h3 className="text-lg font-semibold text-foreground mb-4">
-            Módulos Principales
+          <h3 className="mt-12 font-bold text-lg pb-3 border-b-2 border-line-strong">
+            Módulos
           </h3>
-          <div className="grid sm:grid-cols-3 gap-4">
-            <div className="glass rounded-xl p-5 text-center hover:bg-surface-hover transition-all duration-300 hover:-translate-y-1">
-              <div className="w-12 h-12 mx-auto flex items-center justify-center rounded-lg bg-primary/10 mb-3">
-                <ClipboardList className="w-6 h-6 text-primary-light" />
-              </div>
-              <h4 className="text-foreground font-medium text-sm mb-1">
-                Catálogo de Formularios
-              </h4>
-              <p className="text-xs text-muted">
-                Organización por áreas operativas y tipos de control
-              </p>
-            </div>
-            <div className="glass rounded-xl p-5 text-center hover:bg-surface-hover transition-all duration-300 hover:-translate-y-1">
-              <div className="w-12 h-12 mx-auto flex items-center justify-center rounded-lg bg-primary/10 mb-3">
-                <History className="w-6 h-6 text-primary-light" />
-              </div>
-              <h4 className="text-foreground font-medium text-sm mb-1">
-                Historial de Registros
-              </h4>
-              <p className="text-xs text-muted">
-                Trazabilidad en tiempo real con estados de verificación
-              </p>
-            </div>
-            <div className="glass rounded-xl p-5 text-center hover:bg-surface-hover transition-all duration-300 hover:-translate-y-1">
-              <div className="w-12 h-12 mx-auto flex items-center justify-center rounded-lg bg-primary/10 mb-3">
-                <FileBarChart className="w-6 h-6 text-primary-light" />
-              </div>
-              <h4 className="text-foreground font-medium text-sm mb-1">
-                Módulo de Reportes
-              </h4>
-              <p className="text-xs text-muted">
-                Filtros avanzados con control de acceso autenticado
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Tech Stack */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">
-            Stack <span className="gradient-text">Tecnológico</span>
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            {techStack.map((tech) => (
-              <span
-                key={tech}
-                className="px-4 py-2 text-sm font-medium text-primary-light bg-primary/10 rounded-full border border-primary/20"
+          <ul>
+            {modules.map((m) => (
+              <li
+                key={m.title}
+                className="py-4 border-b border-line grid sm:grid-cols-[14rem_1fr] gap-1 sm:gap-6"
               >
-                {tech}
-              </span>
+                <span className="font-semibold">{m.title}</span>
+                <span className="text-fg-soft">{m.description}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-8 text-fg-soft">
+            <span className="text-fg font-semibold">Stack:</span>{" "}
+            {techStack.join(", ")}.
+          </p>
+        </Block>
+
+        <Block title="Resultados">
+          <div className="grid sm:grid-cols-3 gap-4">
+            {results.map((result) => (
+              <div
+                key={result.title}
+                className="bg-green-wash border border-green/25 rounded-2xl p-5"
+              >
+                <h3 className="font-bold text-green text-lg">{result.title}</h3>
+                <p className="mt-2 text-fg leading-relaxed">
+                  {result.description}
+                </p>
+              </div>
             ))}
           </div>
-        </section>
+        </Block>
 
-        {/* Resultados */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">
-            Resultados e{" "}
-            <span className="gradient-text">Impacto</span>
-          </h2>
-          <div className="grid sm:grid-cols-3 gap-4">
-            {results.map((result) => {
-              const Icon = result.icon;
-              return (
-                <div
-                  key={result.title}
-                  className="glass rounded-xl p-6 hover:bg-surface-hover hover:border-border-hover transition-all duration-300 hover:-translate-y-1 glow-purple-hover"
-                >
-                  <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 mb-4">
-                    <Icon className="w-6 h-6 text-primary-light" />
-                  </div>
-                  <h3 className="text-foreground font-semibold mb-2">
-                    {result.title}
-                  </h3>
-                  <p className="text-sm text-muted leading-relaxed">
-                    {result.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* CTA */}
-        <div className="text-center glass rounded-xl p-8">
-          <p className="text-muted mb-4">
-            ¿Interesado en un proyecto similar para tu organización?
+        <div className="mt-6 bg-plum border border-line-strong rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <p className="text-2xl sm:text-3xl font-bold tracking-tight max-w-lg leading-tight">
+            ¿Quieres algo así para tu organización?
           </p>
           <Link
             href="/#contacto"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary-light text-white font-medium rounded-lg hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5"
+            className="self-start md:self-auto font-semibold text-white bg-violet hover:bg-violet-dark px-6 py-3 rounded-full transition-colors"
           >
             Hablemos de tu proyecto
           </Link>
