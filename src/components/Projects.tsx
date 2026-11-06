@@ -1,110 +1,120 @@
 import Image from "next/image";
-import Link from "next/link";
+import { ArrowUpRight, Lock } from "lucide-react";
+import TrackedLink from "@/components/TrackedLink";
 import { caseStudies } from "@/data/case-studies";
+import { eventSlug } from "@/lib/analytics";
 
-interface Project {
-  title: string;
-  description: string;
-  tags: string[];
-}
-
-interface Featured {
+interface Card {
+  slug: string;
   href: string;
+  repo?: string;
   badge: string;
-  practice: boolean;
   title: string;
   summary: string;
   tags: string[];
   cover: { src: string; alt: string };
 }
 
-const featured: Featured[] = [
+// Strongest evidence first: Mesa Viva has unit, integration and E2E tests.
+const ORDER = ["mesa-viva", "caudal", "ventas-inventario"];
+
+const cards: Card[] = [
+  ...[...caseStudies]
+    .sort((a, b) => ORDER.indexOf(a.slug) - ORDER.indexOf(b.slug))
+    .map((c) => ({
+      slug: c.slug,
+      href: `/proyectos/${c.slug}`,
+      repo: c.repo,
+      badge: "Hecho con Claude Code",
+      title: c.title,
+      summary: c.summary,
+      tags: c.tags,
+      cover: c.cover,
+    })),
   {
+    slug: "cocina",
     href: "/proyectos/cocina",
-    badge: "Caso de estudio, Country Club Ejecutivo",
-    practice: false,
-    title: "Sistema digital de gestión operativa para cocina",
+    badge: "Prototipo de práctica · Country Club Ejecutivo",
+    title: "Controles de cocina sin papel",
     summary:
-      "Reemplacé las planillas en papel de la cocina por una aplicación web: el personal diligencia los controles, los supervisores los verifican y cada registro queda trazable en historial y reportes.",
-    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"],
+      "Levanté con el chef y el personal cómo se llenaban los formatos en papel y construí un prototipo web de formularios, historial y verificación, probado con datos simulados.",
+    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Entra ID"],
     cover: {
       src: "/projects/cocina/historial.png",
-      alt: "Historial de registros del sistema de cocina con estados de verificación",
+      alt: "Historial de registros del prototipo con estados de verificación",
     },
   },
-  ...caseStudies.map((c) => ({
-    href: `/proyectos/${c.slug}`,
-    badge: "Práctica con Claude Code",
-    practice: true,
-    title: c.title,
-    summary: c.summary,
-    tags: c.tags,
-    cover: c.cover,
-  })),
 ];
 
-const otherProjects: Project[] = [
-  {
-    title: "Gestión para guardería canina",
-    description:
-      "Aplicación web para reservas, control de servicios y pagos de una guardería canina, pensada para la operación del día a día.",
-    tags: ["Node.js", "JavaScript", "SQL", "HTML/CSS"],
-  },
-  {
-    title: "Arquitectura de servidores web seguros",
-    description:
-      "Red distribuida con VLANs y tres servidores (web, aplicación y base de datos), router-on-a-stick y Active Directory en Windows Server con políticas de seguridad.",
-    tags: ["Redes TCP/IP", "VLANs", "Windows Server", "Firewall"],
-  },
+const AI_STEPS = [
+  { title: "Yo decido", text: "Qué construir, las restricciones y cuándo algo está terminado." },
+  { title: "El agente escribe", text: "El código y los tests, con su firma en cada commit." },
+  { title: "Yo verifico", text: "Reviso el código, pruebo cada flujo y documento lo que falla." },
 ];
 
-function Tags({ tags }: { tags: string[] }) {
+function ProjectCard({ card, flip }: { card: Card; flip: boolean }) {
+  const caseEvent = `open_case_${eventSlug(card.slug)}` as const;
   return (
-    <p className="text-sm text-fg-soft">
-      {tags.join(", ")}
-    </p>
-  );
-}
-
-function FeaturedCard({ project, flip }: { project: Featured; flip: boolean }) {
-  return (
-    <Link
-      href={project.href}
-      className="group grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-8 lg:gap-12 items-center bg-plum border border-line rounded-3xl p-5 sm:p-8 hover:border-violet transition-colors"
-    >
-      <div
-        className={`relative aspect-[16/10] overflow-hidden rounded-2xl border border-line bg-night ${
+    <article className="grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-8 lg:gap-12 items-center bg-plum border border-line rounded-3xl p-5 sm:p-8">
+      <TrackedLink
+        href={card.href}
+        event={caseEvent}
+        eventProps={{ from: "imagen" }}
+        className={`group relative block aspect-[16/10] overflow-hidden rounded-2xl border border-line bg-night hover:border-violet transition-colors ${
           flip ? "lg:order-2" : ""
         }`}
+        aria-label={`Leer el caso: ${card.title}`}
       >
         <Image
-          src={project.cover.src}
-          alt={project.cover.alt}
+          src={card.cover.src}
+          alt={card.cover.alt}
           fill
           sizes="(max-width: 1024px) 100vw, 560px"
           className="object-cover object-left-top"
         />
-      </div>
+      </TrackedLink>
       <div>
         <p
-          className={`inline-flex items-center gap-2 text-sm font-semibold px-3 py-1 rounded-full ${
-            project.practice ? "text-lilac bg-violet/15" : "text-green bg-green-wash"
+          className={`inline-flex text-sm font-semibold px-3 py-1 rounded-full ${
+            card.repo ? "text-lilac bg-violet/15" : "text-green bg-green-wash"
           }`}
         >
-          {project.badge}
+          {card.badge}
         </p>
         <h3 className="mt-5 text-2xl sm:text-3xl font-bold tracking-tight leading-tight">
-          {project.title}
+          {card.title}
         </h3>
-        <p className="mt-4 text-fg-soft leading-relaxed">{project.summary}</p>
-        <div className="mt-5">
-          <Tags tags={project.tags} />
+        <p className="mt-4 text-fg-soft leading-relaxed">{card.summary}</p>
+        <p className="mt-5 text-sm text-fg-soft">{card.tags.join(", ")}</p>
+
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <TrackedLink
+            href={card.href}
+            event={caseEvent}
+            eventProps={{ from: "boton" }}
+            className="rounded-full border border-line-strong px-5 py-2.5 font-semibold hover:border-lilac transition-colors"
+          >
+            Leer el caso
+          </TrackedLink>
+          {card.repo ? (
+            <TrackedLink
+              href={card.repo}
+              event={`click_repo_${eventSlug(card.slug)}`}
+              eventProps={{ from: "proyectos" }}
+              className="inline-flex items-center gap-2 rounded-full bg-violet hover:bg-violet-dark px-5 py-2.5 font-semibold text-white transition-colors"
+            >
+              Ver el código
+              <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+            </TrackedLink>
+          ) : (
+            <span className="inline-flex items-center gap-2 text-sm text-fg-soft">
+              <Lock className="w-4 h-4" aria-hidden="true" />
+              Código privado del club
+            </span>
+          )}
         </div>
-        <p className="mt-6 font-semibold text-lilac underline decoration-2 underline-offset-[6px] decoration-transparent group-hover:decoration-lilac transition-colors">
-          Leer el caso completo
-        </p>
       </div>
-    </Link>
+    </article>
   );
 }
 
@@ -114,28 +124,27 @@ export default function Projects() {
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <h2 className="text-3xl font-bold tracking-tight">Proyectos</h2>
 
-        <div className="mt-10 space-y-6">
-          {featured.map((project, i) => (
-            <FeaturedCard key={project.href} project={project} flip={i % 2 === 1} />
-          ))}
+        <div className="mt-8 rounded-3xl border border-line-strong p-6 sm:p-8">
+          <h3 className="text-xl font-bold tracking-tight">Cómo trabajo con IA</h3>
+          <p className="mt-2 max-w-[65ch] text-fg-soft leading-relaxed">
+            Tres de estos proyectos los construí con Claude Code, un agente de programación. No lo
+            escondo: cada caso y cada README dicen qué hice yo y qué hizo el agente.
+          </p>
+          <ol className="mt-6 grid sm:grid-cols-3 gap-4">
+            {AI_STEPS.map((step, i) => (
+              <li key={step.title} className="rounded-2xl bg-plum border border-line p-4">
+                <p className="text-sm font-semibold text-lilac">
+                  {i + 1}. {step.title}
+                </p>
+                <p className="mt-1 leading-relaxed">{step.text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
 
-        <div className="mt-10 grid md:grid-cols-2 gap-6">
-          {otherProjects.map((project) => (
-            <article
-              key={project.title}
-              className="border-t-2 border-line-strong pt-5"
-            >
-              <h3 className="text-xl font-bold tracking-tight">
-                {project.title}
-              </h3>
-              <p className="mt-3 text-fg-soft leading-relaxed max-w-[60ch]">
-                {project.description}
-              </p>
-              <div className="mt-4">
-                <Tags tags={project.tags} />
-              </div>
-            </article>
+        <div className="mt-8 space-y-6">
+          {cards.map((card, i) => (
+            <ProjectCard key={card.slug} card={card} flip={i % 2 === 1} />
           ))}
         </div>
       </div>
