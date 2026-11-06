@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import Clarity from "@/components/Clarity";
+import ScrollDepth from "@/components/ScrollDepth";
 import "./globals.css";
 
 const urbanist = Urbanist({
@@ -44,6 +47,9 @@ export default function RootLayout({
         className={`${urbanist.variable} font-sans antialiased`}
       >
         {children}
+        <ScrollDepth />
+        <Analytics />
+        <Clarity />
       </body>
     </html>
   );
