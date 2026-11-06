@@ -2,6 +2,8 @@
 
 **[English](#english) · [Español](#español)**
 
+**Live:** https://portafolio-nico-lime.vercel.app
+
 **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Vercel Analytics · Microsoft Clarity
 
 ---
