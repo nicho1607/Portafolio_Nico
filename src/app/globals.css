@@ -45,51 +45,13 @@ section {
   scroll-margin-top: 80px;
 }
 
-/* Hero: violet glow behind the portrait arch */
-.arch-glow {
-  background: radial-gradient(closest-side, rgba(124, 77, 255, 0.5), rgba(124, 77, 255, 0) 75%);
-}
-
 /* Solid disc behind the portrait, fading into the page at the bottom */
 .arch-disc {
   background: linear-gradient(180deg, #7c4dff 0%, #5a2fd6 45%, rgba(90, 47, 214, 0) 92%);
 }
 
-/* Hero tally: 40 boxes ticked one after another on load */
-.tally-box {
-  position: relative;
-  aspect-ratio: 1;
-  border: 1.5px solid var(--color-line-strong);
-  border-radius: 5px;
-  background: var(--color-plum);
-}
-
-.tally-box svg {
-  position: absolute;
-  inset: 15%;
-  stroke: var(--color-green);
-  stroke-width: 3;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 24;
-  stroke-dashoffset: 24;
-  animation: tick 0.28s ease-out forwards;
-  animation-delay: calc(var(--i) * 45ms + 600ms);
-}
-
-@keyframes tick {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .tally-box svg {
-    animation: none;
-    stroke-dashoffset: 0;
   }
 }
