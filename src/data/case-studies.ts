@@ -1,4 +1,4 @@
-// Practice projects built with Claude Code. Every figure here was measured locally
+// Projects built with Claude Code, each with a public repo. Every figure here was measured locally
 // on 2026-11-01 (production build); see portafolio_casos/03_evidencia.md.
 
 export interface Shot {
@@ -20,6 +20,8 @@ export interface Decision {
 
 export interface CaseStudy {
   slug: string;
+  /** Public GitHub repository with the code. */
+  repo: string;
   title: string;
   summary: string;
   tags: string[];
@@ -35,12 +37,12 @@ export interface CaseStudy {
   gallery: Shot[];
 }
 
-const ROLE_BASE =
-  "Proyecto de práctica para aprender a desarrollar con Claude Code. Yo definía qué construir y le daba las instrucciones, revisaba el código que generaba y hacía pruebas de cada funcionalidad. El código lo escribió la IA. No tuvo usuarios reales.";
+const REPO = (name: string) => `https://github.com/nicho1607/${name}`;
 
 export const caseStudies: CaseStudy[] = [
   {
     slug: "mesa-viva",
+    repo: REPO("mesa-viva"),
     title: "Mesa Viva: pedidos por QR en tiempo real",
     summary:
       "El cliente pide desde el móvil escaneando el QR de su mesa y el mesero recibe la ronda al instante en su tablero, sin que nadie se registre.",
@@ -52,8 +54,8 @@ export const caseStudies: CaseStudy[] = [
     oneLiner:
       "Pedidos desde la mesa por QR para restaurantes: el cliente pide sin crear cuenta y el mesero lo ve en vivo.",
     role: [
-      ROLE_BASE,
-      "Se construyó en un día, a partir de un PRD de 13 historias implementadas una por una (22 commits).",
+      "Construí este proyecto con Claude Code, un agente de programación. Yo definí qué construir y puse dos restricciones: que el cliente pidiera sin crear cuenta y que el tiempo real funcionara sin servicios externos.",
+      "El agente escribió el código y los tests a partir de un PRD de 13 historias, en unas 2 horas, como muestra el historial de git: cada commit lleva su firma. Yo revisé el código generado y probé cada flujo a mano; así encontré el error que aparece en «Qué haría distinto». No tuvo usuarios reales.",
     ],
     problem: [
       "El escenario: en un restaurante con pedidos en papel, el cliente espera para pedir y para pagar, y el mesero no sabe qué mesa lo necesita.",
@@ -114,6 +116,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "ventas-inventario",
+    repo: REPO("ventas-inventario"),
     title: "Ventas e inventario: POS sin sobreventa",
     summary:
       "Punto de venta con inventario y reportes para una tienda de barrio: cada venta descuenta el stock de forma atómica y queda en una bitácora.",
@@ -124,7 +127,10 @@ export const caseStudies: CaseStudy[] = [
     },
     oneLiner:
       "POS, inventario y reportes para una tienda de barrio en pesos colombianos.",
-    role: [ROLE_BASE, "Un solo commit; no tiene tests automatizados ni login."],
+    role: [
+      "Construí este proyecto con Claude Code, un agente de programación. Yo definí qué construir y le di las instrucciones; el agente escribió el código y yo lo revisé y probé cada funcionalidad.",
+      "Quedó en un solo commit, así que el historial no muestra los pasos intermedios. No tiene tests automatizados ni login, y no tuvo usuarios reales.",
+    ],
     problem: [
       "El escenario: una tienda que vende en caja y necesita saber qué stock le queda y cuánto gana.",
       "Restricciones: nada se borra (los productos se archivan y las ventas se anulan), el stock solo cambia mediante movimientos registrados y el dinero se guarda en centavos.",
@@ -183,6 +189,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "caudal",
+    repo: REPO("caudal"),
     title: "Caudal: finanzas personales que se categorizan solas",
     summary:
       "Registras un gasto escribiendo una frase como “Netflix 44.900 tarjeta nu” y la app deduce el importe, la cuenta y la categoría.",
@@ -194,8 +201,8 @@ export const caseStudies: CaseStudy[] = [
     oneLiner:
       "Finanzas personales con alta rápida en texto libre y categorización automática que aprende.",
     role: [
-      ROLE_BASE,
-      "Se construyó en un día, a partir de un PRD de 17 historias (19 commits). Todavía no tiene login: usa un usuario demo.",
+      "Construí este proyecto con Claude Code, un agente de programación. Yo definí qué construir y le di las instrucciones.",
+      "El agente escribió el código y los tests a partir de un PRD de 17 historias, en unas 4 horas, como muestra el historial de git. Yo revisé el código generado y probé cada funcionalidad a mano. Todavía no tiene login: usa un usuario demo. No tuvo usuarios reales.",
     ],
     problem: [
       "El escenario: registrar gastos tiene que ser lo bastante rápido para hacerlo a diario, sin categorizar a mano cada vez.",
@@ -251,74 +258,6 @@ export const caseStudies: CaseStudy[] = [
       { src: "/projects/caudal/1440-04-ajustes-reglas.png", alt: "Categorías y reglas", caption: "Categorías y reglas de categorización." },
       { src: "/projects/caudal/390-06-dashboard-octubre.png", alt: "Dashboard en el móvil", caption: "Dashboard en el móvil.", mobile: true },
       { src: "/projects/caudal/390-05-alta-rapida.png", alt: "Alta rápida en el móvil", caption: "Alta rápida en el móvil.", mobile: true },
-    ],
-  },
-  {
-    slug: "devboard",
-    title: "devBoard: tablero Kanban colaborativo",
-    summary:
-      "Tablero tipo Jira para equipos de desarrollo: arrastras tareas entre columnas y el cambio se ve al instante y se guarda en el servidor, con subtareas, comentarios e historial.",
-    tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Clerk", "Pusher"],
-    cover: {
-      src: "/projects/devboard/1536-01-tablero.jpg",
-      alt: "Tablero Kanban con columnas Backlog, To Do, In Progress, Code Review y Done",
-    },
-    oneLiner:
-      "Tablero Kanban para equipos de desarrollo, con drag and drop optimista, workspaces con miembros y login con Clerk.",
-    role: [
-      ROLE_BASE,
-      "La carpeta no tiene historial de git: todo el código se generó en una sola sesión. Tampoco tiene tests automatizados.",
-    ],
-    problem: [
-      "El escenario: un equipo que organiza su trabajo en un tablero, con varias personas moviendo tareas a la vez.",
-      "Restricciones: el login se delega en Clerk, el tiempo real usa Pusher, y cada proyecto pertenece a un workspace al que solo acceden sus miembros.",
-    ],
-    architecture: {
-      src: "/projects/devboard/arquitectura.png",
-      width: 3200,
-      height: 1528,
-      notes: [
-        "Next.js con Route Handlers REST para tareas, movimientos, subtareas y comentarios.",
-        "Cada handler valida con Zod y comprueba que el usuario sea miembro del workspace antes de tocar la base de datos.",
-        "Tras cada cambio, el servidor lo emite por un canal privado de Pusher, excluyendo a quien lo hizo.",
-      ],
-    },
-    decisions: [
-      {
-        title: "Orden por posición fraccional, enviando las tareas vecinas",
-        what: "Al mover una tarea, el cliente envía qué tareas quedan antes y después, no un índice. El servidor calcula una posición intermedia y rebalancea la columna cuando los números se acercan demasiado. Si el tablero cambió mientras tanto, responde 409.",
-        alternative: "Enviar el índice de destino: falla cuando hay filtros activos o cuando otra persona movió algo.",
-        tradeoff: "Las posiciones son decimales y a veces hay que rebalancear la columna completa.",
-      },
-      {
-        title: "Drag and drop optimista con rollback",
-        what: "La tarea se mueve en la pantalla al instante. Si el servidor rechaza el cambio, se restaura el estado anterior; si responde 409, se recarga el tablero.",
-        alternative: "Esperar la respuesta del servidor antes de mover: la interfaz se siente lenta.",
-        tradeoff: "El cliente guarda una copia del estado para poder deshacer, y hay que manejar el caso de conflicto.",
-      },
-      {
-        title: "Acceso por membresía, respondiendo 404 a quien no es miembro",
-        what: "Cada endpoint resuelve el proyecto o la tarea filtrando por los workspaces del usuario. A un no miembro se le responde 404, para no revelar que el recurso existe.",
-        alternative: "Responder 403: confirma a un extraño que el proyecto existe.",
-        tradeoff: "Dentro de un workspace, cualquier miembro puede editar cualquier tarea; el rol de administrador casi no se usa.",
-      },
-    ],
-    results: [
-      { label: "Mover una tarea", value: "Guardado en BD y en el historial, verificado" },
-      { label: "Typecheck desde un clon limpio", value: "Sin errores" },
-      { label: "Build de producción", value: "Requiere claves de Clerk" },
-      { label: "Tests automatizados", value: "No tiene" },
-    ],
-    improve: [
-      "Configurar claves reales de Clerk y Pusher, para compilar en producción y tener tiempo real.",
-      "Escribir tests del orden fraccional y de los conflictos al mover.",
-      "Agregar pantallas para invitar miembros y gestionar columnas y etiquetas.",
-      "Aplicar en el servidor el límite WIP de las columnas, que hoy solo se muestra.",
-    ],
-    videos: [],
-    gallery: [
-      { src: "/projects/devboard/1536-02-detalle-tarea.jpg", alt: "Detalle de una tarea con subtareas, comentarios y propiedades", caption: "Detalle de tarea: subtareas, comentarios en Markdown y propiedades.", width: 1536, height: 646 },
-      { src: "/projects/devboard/1536-03-tablero-tras-mover.jpg", alt: "Tablero después de mover DEV-5 a In Progress", caption: "Después de arrastrar DEV-5 a In Progress: el cambio persiste al recargar.", width: 1536, height: 646 },
     ],
   },
 ];
