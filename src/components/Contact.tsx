@@ -21,7 +21,7 @@ export default function Contact() {
   return (
     <>
       <section id="contacto" className="relative py-20 sm:py-28 bg-plum border-t border-line">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-14 lg:gap-20">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20">
           <div>
             <h2 className="text-4xl sm:text-5xl font-extrabold tracking-[-0.03em] leading-[1.02]">
               ¿Buscas un desarrollador full stack?
