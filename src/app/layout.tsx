@@ -11,26 +11,28 @@ const urbanist = Urbanist({
   display: "swap",
 });
 
+const description =
+  "Desarrollador Full Stack con TypeScript, Next.js, Node.js, PostgreSQL y Prisma en Medellín. Proyectos con el código abierto en GitHub y la autoría explicada: qué hice yo y qué hizo el agente de IA.";
+
 export const metadata: Metadata = {
-  title: "Nicolás Castañeda | Ingeniero Informático - Full Stack & Automation Developer",
-  description:
-    "Portafolio profesional de Nicolás Castañeda Betancur. Ingeniero Informático especializado en desarrollo Full Stack, automatización de procesos y soluciones digitales con Next.js, TypeScript, Python y Power Platform.",
+  title: "Nicolás Castañeda | Desarrollador Full Stack (TypeScript, Next.js, PostgreSQL)",
+  description,
   keywords: [
     "Nicolás Castañeda",
-    "Ingeniero Informático",
+    "Desarrollador Full Stack",
     "Full Stack Developer",
-    "Automatización",
-    "Next.js",
     "TypeScript",
-    "Power Platform",
+    "Next.js",
+    "Node.js",
+    "PostgreSQL",
+    "Prisma",
     "Medellín",
     "Colombia",
   ],
   authors: [{ name: "Nicolás Castañeda Betancur" }],
   openGraph: {
-    title: "Nicolás Castañeda | Ingeniero Informático",
-    description:
-      "Desarrollo Full Stack & Automatización de procesos. Soluciones digitales eficientes.",
+    title: "Nicolás Castañeda | Desarrollador Full Stack",
+    description,
     type: "website",
     locale: "es_CO",
   },
