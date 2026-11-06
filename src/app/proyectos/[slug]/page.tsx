@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Mail } from "lucide-react";
+import TrackedLink from "@/components/TrackedLink";
 import { caseStudies, getCaseStudy } from "@/data/case-studies";
+import { EMAIL } from "@/data/links";
+import { eventSlug } from "@/lib/analytics";
 
 export const dynamicParams = false;
 
@@ -32,6 +35,7 @@ export default async function CaseStudyPage(props: PageProps<"/proyectos/[slug]"
   const study = getCaseStudy(slug);
   if (!study) notFound();
 
+  const repoEvent = `click_repo_${eventSlug(study.slug)}` as const;
   const desktopShots = study.gallery.filter((s) => !s.mobile);
   const mobileShots = study.gallery.filter((s) => s.mobile);
 
@@ -48,7 +52,7 @@ export default async function CaseStudyPage(props: PageProps<"/proyectos/[slug]"
 
         <header className="mt-10 pb-14">
           <p className="inline-flex text-sm font-semibold text-lilac bg-violet/15 px-3 py-1 rounded-full">
-            Práctica con Claude Code
+            Hecho con Claude Code
           </p>
           <h1 className="mt-6 max-w-4xl font-extrabold tracking-[-0.035em] leading-[0.98] text-[clamp(2.4rem,6vw,4.5rem)]">
             {study.title}
@@ -57,6 +61,15 @@ export default async function CaseStudyPage(props: PageProps<"/proyectos/[slug]"
             {study.oneLiner}
           </p>
           <p className="mt-4 text-fg-soft">{study.tags.join(", ")}</p>
+          <TrackedLink
+            href={study.repo}
+            event={repoEvent}
+            eventProps={{ from: "caso_arriba" }}
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-violet hover:bg-violet-dark px-6 py-3 font-semibold text-white transition-colors"
+          >
+            Ver el código en GitHub
+            <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+          </TrackedLink>
         </header>
 
         {/* Main flow, recorded from the real app */}
@@ -79,7 +92,7 @@ export default async function CaseStudyPage(props: PageProps<"/proyectos/[slug]"
           </div>
         )}
 
-        <Block title="Mi rol">
+        <Block title="Cómo lo construí">
           <div className="space-y-4 max-w-[65ch] text-lg leading-relaxed">
             {study.role.map((p) => (
               <p key={p}>{p}</p>
@@ -104,15 +117,22 @@ export default async function CaseStudyPage(props: PageProps<"/proyectos/[slug]"
               </li>
             ))}
           </ul>
-          <div className="mt-8 overflow-x-auto rounded-2xl border border-line bg-white p-4">
+          <a
+            href={study.architecture.src}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 block rounded-2xl border border-line bg-white p-4"
+          >
             <Image
               src={study.architecture.src}
               alt={`Diagrama de arquitectura de ${study.title}`}
               width={study.architecture.width}
               height={study.architecture.height}
-              className="min-w-[720px] w-full h-auto"
+              sizes="(max-width: 1024px) 100vw, 760px"
+              className="w-full h-auto"
             />
-          </div>
+          </a>
+          <p className="mt-2 text-sm text-fg-soft">Toca el diagrama para verlo en tamaño completo.</p>
         </Block>
 
         <Block title="Decisiones técnicas">
@@ -196,14 +216,28 @@ export default async function CaseStudyPage(props: PageProps<"/proyectos/[slug]"
 
         <div className="mt-6 bg-plum border border-line-strong rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <p className="text-2xl sm:text-3xl font-bold tracking-tight max-w-lg leading-tight">
-            ¿Quieres hablar de este proyecto?
+            El código, los tests y el historial están en GitHub.
           </p>
-          <Link
-            href="/#contacto"
-            className="self-start md:self-auto font-semibold text-white bg-violet hover:bg-violet-dark px-6 py-3 rounded-full transition-colors"
-          >
-            Escríbeme
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <TrackedLink
+              href={study.repo}
+              event={repoEvent}
+              eventProps={{ from: "caso_abajo" }}
+              className="inline-flex items-center gap-2 font-semibold text-white bg-violet hover:bg-violet-dark px-6 py-3 rounded-full transition-colors"
+            >
+              Ver el código
+              <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+            </TrackedLink>
+            <TrackedLink
+              href={`mailto:${EMAIL}`}
+              event="click_email"
+              eventProps={{ from: `caso_${eventSlug(study.slug)}` }}
+              className="inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-full border border-line-strong hover:border-lilac transition-colors"
+            >
+              <Mail className="w-4 h-4" aria-hidden="true" />
+              Escríbeme
+            </TrackedLink>
+          </div>
         </div>
       </div>
     </main>
