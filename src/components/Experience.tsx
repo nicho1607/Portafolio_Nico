@@ -14,10 +14,10 @@ const experiences: ExperienceItem[] = [
     location: "Medellín",
     period: "Feb 2026 – Ago 2026",
     description: [
-      "Diseñé y desarrollé una plataforma web para digitalizar 40 procesos operativos de cocina e inventarios con Next.js, TypeScript, Prisma y PostgreSQL.",
-      "Automaticé los controles de inventarios, temperaturas y recambio de aceite, eliminando los formularios físicos y reduciendo el trabajo manual.",
+      "Levanté con el Chef, el Sub-Chef y el Analista de Operaciones cómo se diligenciaban los controles de cocina en papel.",
+      "Construí un prototipo web con Next.js, TypeScript, Prisma y PostgreSQL sobre la plantilla del club: formularios definidos por datos, historial, verificación y reportes, probado con datos simulados.",
     ],
-    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Power BI"],
+    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Entra ID"],
   },
   {
     role: "Tutor de programación en Python",
@@ -25,9 +25,7 @@ const experiences: ExperienceItem[] = [
     location: "Remoto",
     period: "Jun 2025 – Feb 2026",
     description: [
-      "Acompañé a más de 30 estudiantes en los fundamentos de programación con Python.",
-      "Diseñé planes de estudio según el nivel y el ritmo de cada estudiante.",
-      "Obtuve un 95% de satisfacción en las encuestas de los estudiantes.",
+      "Acompañé a más de 30 estudiantes en los fundamentos de programación con Python, con planes según el nivel de cada uno.",
       "Guié proyectos prácticos de lógica de programación y estructuras de datos.",
     ],
     tags: ["Python", "Educación", "Mentoría"],
