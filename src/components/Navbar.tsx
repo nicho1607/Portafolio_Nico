@@ -3,17 +3,16 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import TrackedLink from "@/components/TrackedLink";
+import { GithubIcon } from "@/components/icons";
+import { GITHUB_PROFILE } from "@/data/links";
 
 const navLinks = [
-  { label: "Sobre mí", href: "/#sobre-mi" },
-  { label: "Habilidades", href: "/#habilidades" },
   { label: "Proyectos", href: "/#proyectos" },
+  { label: "Sobre mí", href: "/#sobre-mi" },
   { label: "Experiencia", href: "/#experiencia" },
   { label: "Contacto", href: "/#contacto" },
 ];
-
-const whatsappHref =
-  "https://wa.me/573016502900?text=Hola%20Nicolás,%20me%20interesa%20tu%20trabajo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,14 +49,14 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-semibold text-white bg-violet hover:bg-violet-dark px-5 py-2 rounded-full transition-colors"
+            <TrackedLink
+              href={GITHUB_PROFILE}
+              event="click_github_nav"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-violet hover:bg-violet-dark px-5 py-2 rounded-full transition-colors"
             >
-              Escríbeme por WhatsApp
-            </a>
+              <GithubIcon className="w-4 h-4" />
+              GitHub
+            </TrackedLink>
           </div>
 
           <button
@@ -83,14 +82,14 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block mt-4 text-center font-semibold text-white bg-violet px-5 py-3 rounded-full"
+          <TrackedLink
+            href={GITHUB_PROFILE}
+            event="click_github_nav_movil"
+            className="mt-4 flex items-center justify-center gap-2 font-semibold text-white bg-violet px-5 py-3 rounded-full"
           >
-            Escríbeme por WhatsApp
-          </a>
+            <GithubIcon className="w-5 h-5" />
+            Ver mi GitHub
+          </TrackedLink>
         </div>
       )}
     </nav>
