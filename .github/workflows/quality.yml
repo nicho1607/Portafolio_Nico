@@ -30,10 +30,10 @@ jobs:
         run: npm run lhci
 
       - uses: actions/upload-artifact@v4
-        if: failure()
+        if: always()
         with:
           name: reports
-          # .lighthouseci is a dot-folder; upload-artifact v4 skips those by default.
+          # Always kept as evidence of the budgets. .lighthouseci is a dot-folder; upload-artifact v4 skips those by default.
           include-hidden-files: true
           path: |
             playwright-report/

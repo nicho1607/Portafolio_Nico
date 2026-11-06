@@ -55,9 +55,9 @@ Vercel Analytics works once the project is deployed on Vercel with Web Analytics
 
 ### Quality gates (CI)
 
-Every push runs typecheck, lint, build, Playwright E2E (the GitHub CTA must be visible without scrolling at 1366×768 and 390×844), axe-core (0 WCAG 2.1 AA violations) and Lighthouse CI on mobile with these budgets: Performance ≥ 95, Accessibility 100, LCP < 2.5 s, CLS < 0.05.
+Every push runs typecheck, lint, build, Playwright E2E (the GitHub CTA must be visible without scrolling at 1366×768 and 390×844), axe-core (0 WCAG 2.1 AA violations) and Lighthouse CI on mobile with these budgets: Performance ≥ 95, Accessibility 100, LCP < 2.0 s, CLS < 0.05.
 
-LCP was first set at 2.0 s. In CI the observed LCP is the same as the first paint (~0.2 s), but Lighthouse's simulated slow-4G estimate counts the Next.js/React runtime that loads before it and gave 2.3–2.7 s on every page. Getting under 2.0 s would mean dropping the framework, so the budget is Google's "good" Core Web Vitals threshold (2.5 s).
+Lighthouse runs with real browser throttling (`throttlingMethod: devtools`) instead of the default simulated estimate. With the simulated one, the same page's LCP swung between 1.7 s and 2.8 s from run to run, so the gate passed or failed at random. The Lighthouse report is uploaded as a CI artifact on every run.
 
 ---
 
@@ -79,4 +79,4 @@ Los eventos están en la tabla de la sección en inglés. Vercel Analytics funci
 
 ### Calidad (CI)
 
-Cada push corre typecheck, lint, build, E2E con Playwright (el CTA a GitHub visible sin scroll en 1366×768 y 390×844), axe-core (0 violaciones WCAG 2.1 AA) y Lighthouse CI en móvil: Rendimiento ≥ 95, Accesibilidad 100, LCP < 2,5 s, CLS < 0,05. El LCP empezó en 2,0 s; la estimación simulada de Lighthouse cuenta el runtime de Next.js y daba 2,3–2,7 s aunque el pintado real ocurre a ~0,2 s, así que el presupuesto es el umbral "bueno" de Google (2,5 s).
+Cada push corre typecheck, lint, build, E2E con Playwright (el CTA a GitHub visible sin scroll en 1366×768 y 390×844), axe-core (0 violaciones WCAG 2.1 AA) y Lighthouse CI en móvil: Rendimiento ≥ 95, Accesibilidad 100, LCP < 2,0 s, CLS < 0,05. Lighthouse mide con throttling real del navegador (`devtools`): la estimación simulada daba para la misma página entre 1,7 y 2,8 s de una corrida a otra. El reporte queda como artifact de cada corrida.
