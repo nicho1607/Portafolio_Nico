@@ -103,8 +103,8 @@ export const caseStudies: CaseStudy[] = [
       "Agregar CI y desplegar en un servidor Node con Postgres.",
     ],
     videos: [
-      { src: "/projects/mesa-viva/flujo-mesero-1440.webm", poster: "/projects/mesa-viva/1440-04-mesero-plano.png", caption: "Mesero: la ronda llega sin recargar, la confirma y la sirve." },
-      { src: "/projects/mesa-viva/flujo-cliente-390.webm", poster: "/projects/mesa-viva/390-01-cliente-menu.png", caption: "Cliente: pide desde el móvil y sigue su cuenta.", mobile: true },
+      { src: "/projects/mesa-viva/flujo-mesero-1440.webm", poster: "/projects/mesa-viva/1440-04-mesero-plano-poster.webp", caption: "Mesero: la ronda llega sin recargar, la confirma y la sirve." },
+      { src: "/projects/mesa-viva/flujo-cliente-390.webm", poster: "/projects/mesa-viva/390-01-cliente-menu-poster.webp", caption: "Cliente: pide desde el móvil y sigue su cuenta.", mobile: true },
     ],
     gallery: [
       { src: "/projects/mesa-viva/390-01-cliente-menu.png", alt: "Menú del cliente en el móvil", caption: "Menú por categorías desde el QR.", mobile: true },
@@ -177,7 +177,7 @@ export const caseStudies: CaseStudy[] = [
       "Hacer que el build no dependa de la base de datos.",
     ],
     videos: [
-      { src: "/projects/ventas-inventario/flujo-venta-pos-1440.webm", poster: "/projects/ventas-inventario/1440-02-pos-carrito.png", caption: "Venta de tres artículos en efectivo, con cambio." },
+      { src: "/projects/ventas-inventario/flujo-venta-pos-1440.webm", poster: "/projects/ventas-inventario/1440-02-pos-carrito-poster.webp", caption: "Venta de tres artículos en efectivo, con cambio." },
     ],
     gallery: [
       { src: "/projects/ventas-inventario/1440-01-resumen.png", alt: "Resumen de ventas del día", caption: "Resumen del día y del mes." },
@@ -250,7 +250,7 @@ export const caseStudies: CaseStudy[] = [
       "Mejorar el rendimiento del dashboard en móvil.",
     ],
     videos: [
-      { src: "/projects/caudal/flujo-alta-rapida-1440.webm", poster: "/projects/caudal/1440-05-alta-rapida.png", caption: "Alta rápida: escribir el gasto, revisar lo que dedujo y guardar." },
+      { src: "/projects/caudal/flujo-alta-rapida-1440.webm", poster: "/projects/caudal/1440-05-alta-rapida-poster.webp", caption: "Alta rápida: escribir el gasto, revisar lo que dedujo y guardar." },
     ],
     gallery: [
       { src: "/projects/caudal/1440-05-alta-rapida.png", alt: "Diálogo de alta rápida", caption: "Alta rápida en texto libre." },

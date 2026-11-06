@@ -83,7 +83,7 @@ export default async function CaseStudyPage(props: PageProps<"/proyectos/[slug]"
                   controls
                   muted
                   playsInline
-                  preload="metadata"
+                  preload="none"
                   className="w-full rounded-2xl border border-line bg-plum"
                 />
                 <figcaption className="mt-3 text-sm text-fg-soft">{v.caption}</figcaption>
