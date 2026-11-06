@@ -14,55 +14,45 @@ import {
   type SimpleIcon,
 } from "simple-icons";
 
-type SkillLevel = "Básico" | "Intermedio" | "Avanzado";
-
 interface Skill {
   name: string;
-  level: SkillLevel;
   /** Brand mark from simple-icons, or a generic Lucide icon when the brand isn't available. */
   icon: SimpleIcon | LucideIcon;
 }
 
-interface SkillCategory {
+interface SkillGroup {
   title: string;
+  note: string;
   skills: Skill[];
 }
 
-const levelSteps: Record<SkillLevel, number> = {
-  Básico: 1,
-  Intermedio: 2,
-  Avanzado: 3,
-};
-
-const skillCategories: SkillCategory[] = [
+// No self-rated levels: the repos linked above are the evidence.
+const groups: SkillGroup[] = [
   {
-    title: "Lenguajes y frameworks",
+    title: "Stack principal",
+    note: "Lo que usan los proyectos de este sitio.",
     skills: [
-      { name: "TypeScript", level: "Avanzado", icon: siTypescript },
-      { name: "JavaScript", level: "Avanzado", icon: siJavascript },
-      { name: "React", level: "Avanzado", icon: siReact },
-      { name: "Next.js", level: "Avanzado", icon: siNextdotjs },
-      { name: "Tailwind CSS", level: "Avanzado", icon: siTailwindcss },
-      { name: "Python", level: "Intermedio", icon: siPython },
-      { name: "Node.js", level: "Intermedio", icon: siNodedotjs },
+      { name: "TypeScript", icon: siTypescript },
+      { name: "Next.js", icon: siNextdotjs },
+      { name: "React", icon: siReact },
+      { name: "Node.js", icon: siNodedotjs },
+      { name: "PostgreSQL", icon: siPostgresql },
+      { name: "Prisma ORM", icon: siPrisma },
+      { name: "Tailwind CSS", icon: siTailwindcss },
     ],
   },
   {
-    title: "Automatización y herramientas",
+    title: "También he trabajado con",
+    note: "En la práctica, en la universidad o como tutor.",
     skills: [
-      { name: "Power Apps", level: "Avanzado", icon: LayoutGrid },
-      { name: "Power Automate", level: "Avanzado", icon: Workflow },
-      { name: "Git y GitHub", level: "Avanzado", icon: siGithub },
-      { name: "Power BI", level: "Intermedio", icon: BarChart3 },
-      { name: "AWS", level: "Básico", icon: siAmazonwebservices },
-    ],
-  },
-  {
-    title: "Bases de datos",
-    skills: [
-      { name: "PostgreSQL", level: "Intermedio", icon: siPostgresql },
-      { name: "SQL Server", level: "Intermedio", icon: Database },
-      { name: "Prisma ORM", level: "Intermedio", icon: siPrisma },
+      { name: "JavaScript", icon: siJavascript },
+      { name: "Python", icon: siPython },
+      { name: "SQL Server", icon: Database },
+      { name: "Git y GitHub", icon: siGithub },
+      { name: "Power Apps", icon: LayoutGrid },
+      { name: "Power Automate", icon: Workflow },
+      { name: "Power BI", icon: BarChart3 },
+      { name: "AWS", icon: siAmazonwebservices },
     ],
   },
 ];
@@ -86,55 +76,27 @@ function SkillIcon({ icon }: { icon: Skill["icon"] }) {
   return <Icon className="w-4 h-4 text-lilac" aria-hidden="true" />;
 }
 
-function LevelMeter({ level }: { level: SkillLevel }) {
-  const filled = levelSteps[level];
-  return (
-    <span className="flex items-center gap-3">
-      <span className="text-sm text-fg-soft w-20 text-right">{level}</span>
-      <span className="flex gap-1" aria-hidden="true">
-        {[1, 2, 3].map((step) => (
-          <span
-            key={step}
-            className={`h-2.5 w-5 rounded-[2px] ${
-              step <= filled ? "bg-green" : "bg-line"
-            }`}
-          />
-        ))}
-      </span>
-    </span>
-  );
-}
-
 export default function Skills() {
   return (
     <section id="habilidades" className="py-20 sm:py-28 border-t border-line">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[14rem_1fr] gap-8 lg:gap-16">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">Habilidades</h2>
-          <p className="mt-4 text-fg-soft leading-relaxed max-w-xs">
-            Lo que uso a diario y qué tan a fondo lo domino.
-          </p>
-        </div>
+        <h2 className="text-3xl font-bold tracking-tight">Tecnologías</h2>
 
         <div className="grid md:grid-cols-2 gap-x-14 gap-y-12">
-          {skillCategories.map((category) => (
-            <div key={category.title}>
-              <h3 className="font-bold text-lg pb-3 border-b-2 border-line-strong">
-                {category.title}
-              </h3>
-              <ul>
-                {category.skills.map((skill) => (
+          {groups.map((group) => (
+            <div key={group.title}>
+              <h3 className="font-bold text-lg">{group.title}</h3>
+              <p className="mt-1 pb-3 border-b-2 border-line-strong text-sm text-fg-soft">
+                {group.note}
+              </p>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
                   <li
                     key={skill.name}
-                    className="flex items-center justify-between py-3 border-b border-line"
+                    className="flex items-center gap-2 rounded-lg bg-plum border border-line px-3 py-2 text-sm font-medium"
                   >
-                    <span className="flex items-center gap-3 font-medium">
-                      <span className="grid place-items-center w-8 h-8 rounded-lg bg-plum border border-line">
-                        <SkillIcon icon={skill.icon} />
-                      </span>
-                      {skill.name}
-                    </span>
-                    <LevelMeter level={skill.level} />
+                    <SkillIcon icon={skill.icon} />
+                    {skill.name}
                   </li>
                 ))}
               </ul>
