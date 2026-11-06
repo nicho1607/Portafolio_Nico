@@ -1,93 +1,67 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Mail } from "lucide-react";
+import TrackedLink from "@/components/TrackedLink";
+import { EMAIL, FEATURED_REPO } from "@/data/links";
+
+export const metadata: Metadata = {
+  title: "Controles de cocina sin papel (prototipo) | Nicolás Castañeda",
+  description:
+    "Prototipo de práctica en el Country Club Ejecutivo: formularios de control de cocina definidos por datos, historial y verificación, con Next.js, Prisma y PostgreSQL.",
+};
 
 const screenshots = [
   {
     src: "/projects/cocina/home.png",
-    alt: "Portal principal con los módulos de Formularios, Historial y Reportes",
-    caption: "Portal de inicio con acceso a los tres módulos.",
+    alt: "Portal de inicio con los módulos de Formularios, Historial y Reportes",
+    caption: "Inicio con los tres módulos.",
   },
   {
     src: "/projects/cocina/formularios.png",
-    alt: "Catálogo de formularios organizados por área operativa",
-    caption:
-      "Catálogo de formularios por área: Cocina Principal, Panadería, Steward y Cafeterías.",
+    alt: "Catálogo de formularios organizados por área de cocina",
+    caption: "Catálogo de formularios por área.",
   },
   {
     src: "/projects/cocina/historial.png",
-    alt: "Historial de registros con estados de verificación",
-    caption: "Historial con fechas, estados y acciones de verificación.",
+    alt: "Historial de registros con el botón Verificar",
+    caption: "Historial con registros de prueba sin verificar.",
   },
   {
     src: "/projects/cocina/reportes.png",
-    alt: "Módulo de reportes con filtros",
-    caption: "Reportes filtrables por estado, fecha y categoría, con acceso controlado.",
+    alt: "Pantalla de reportes con filtros por estado y fechas",
+    caption: "Reportes filtrables por estado y fechas.",
   },
 ];
 
-const techStack = [
-  "Next.js",
-  "TypeScript",
-  "Prisma ORM",
-  "PostgreSQL",
-  "Tailwind CSS",
-  "Next.js API Routes",
-  "Autenticación por roles",
-];
-
-const stakeholders = [
+const decisions = [
   {
-    title: "Personal operativo",
-    description:
-      "Entrevisté al Chef, al Sub-Chef y al Analista de Operaciones para entender el flujo real de los turnos y cómo diligenciaban cada formulario en la cocina.",
+    title: "Formularios definidos por datos",
+    what: "Cada formulario guarda sus campos como JSON (texto, número, sí/no) y un solo componente los dibuja. Digitalizar un formato en papel nuevo es agregar un registro, no escribir una pantalla.",
+    alternative: "Una pantalla por formulario: más control sobre cada uno, pero decenas de componentes casi iguales.",
+    tradeoff: "La validación es genérica por tipo de campo; no hay reglas específicas por formulario.",
   },
   {
-    title: "Desarrollo Organizacional",
-    description:
-      "Levanté los lineamientos normativos y la estructura formal para que la versión digital cumpliera los estándares y políticas de la organización.",
+    title: "Todas las respuestas en una tabla, en jsonb",
+    what: "Cada registro guarda formulario, persona, fecha, estado y las respuestas en una columna jsonb, así formularios con campos distintos comparten la misma tabla.",
+    alternative: "Una tabla por formulario: tipado fuerte por columna, pero una migración por cada formato nuevo.",
+    tradeoff: "Un reporte sobre un campo concreto necesita consultas sobre JSON en vez de columnas normales.",
+  },
+  {
+    title: "Partir de la plantilla del club",
+    what: "Usé la plantilla interna, que ya resolvía el inicio de sesión con las cuentas Microsoft del club (Entra ID), los timeouts de sesión y la política de seguridad de contenido.",
+    alternative: "Hacer mi propio login: más trabajo y otro sistema de cuentas para el personal.",
+    tradeoff: "Fuera del club no se puede iniciar sesión sin un registro de aplicación en Entra ID.",
   },
 ];
 
-const modules = [
-  {
-    title: "Catálogo de formularios",
-    description: "Plantillas organizadas por área operativa y tipo de control.",
-  },
-  {
-    title: "Historial de registros",
-    description: "Cada registro con su estado: sin verificar o verificado.",
-  },
-  {
-    title: "Reportes",
-    description: "Filtros por fecha, estado y categoría para usuarios autenticados.",
-  },
+const improve = [
+  "Hacer commit de cada avance. La versión final, con verificación y reportes, se desarrolló sin commits y se perdió al borrar la carpeta; en el repositorio solo quedó la versión de julio.",
+  "Tomar el usuario de la sesión. En el prototipo todos los registros quedaban como “Usuario registrado”, como se ve en el historial.",
+  "Escribir tests del formulario dinámico y del flujo de verificación.",
 ];
 
-const results = [
-  {
-    title: "Cero papel",
-    description: "Los controles operativos de cocina se diligencian solo en el sistema.",
-  },
-  {
-    title: "Trazabilidad",
-    description:
-      "Los supervisores ven cada registro al instante y lo marcan como verificado.",
-  },
-  {
-    title: "Menos tiempo administrativo",
-    description:
-      "Ya no hay que llenar formularios a mano ni consolidar reportes manualmente.",
-  },
-];
-
-function Block({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="py-14 border-t border-line grid lg:grid-cols-[14rem_1fr] gap-6 lg:gap-16">
       <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
@@ -110,16 +84,23 @@ export default function ProyectoCocinaPage() {
 
         <header className="mt-10 pb-14">
           <p className="inline-flex text-sm font-semibold text-green bg-green-wash px-3 py-1 rounded-full">
-            Country Club Ejecutivo, 2026
+            Prototipo de práctica · Country Club Ejecutivo, 2026
           </p>
           <h1 className="mt-6 max-w-4xl font-extrabold tracking-[-0.035em] leading-[0.98] text-[clamp(2.4rem,6vw,4.5rem)]">
-            Sistema digital de gestión y control operativo para cocina
+            Controles de cocina sin papel
           </h1>
           <p className="mt-6 text-xl text-fg-soft max-w-[60ch] leading-relaxed">
-            Un sistema web full stack que reemplazó las planillas en papel de la
-            cocina para registrar, auditar y rastrear los controles sanitarios
-            y operativos.
+            Un prototipo web para que el personal de cocina diligencie sus controles en el sistema
+            en vez de en papel, y un supervisor los verifique.
           </p>
+          <div className="mt-8 max-w-[65ch] rounded-2xl border border-line-strong bg-plum p-5 leading-relaxed">
+            <p className="font-semibold">Qué es y qué no es</p>
+            <p className="mt-2 text-fg-soft">
+              Es un prototipo que construí en mi práctica y probé con datos simulados; no llegó a
+              usarse en el día a día. El código es del club y no es público, así que aquí muestro
+              las pantallas, las decisiones y lo que aprendí.
+            </p>
+          </div>
         </header>
 
         <div className="grid md:grid-cols-2 gap-x-6 gap-y-10 pb-16">
@@ -134,110 +115,96 @@ export default function ProyectoCocinaPage() {
                   className="object-cover object-left-top"
                 />
               </div>
-              <figcaption className="mt-3 text-sm text-fg-soft">
-                {shot.caption}
-              </figcaption>
+              <figcaption className="mt-3 text-sm text-fg-soft">{shot.caption}</figcaption>
             </figure>
           ))}
         </div>
 
         <Block title="El problema">
           <p className="text-lg leading-relaxed max-w-[65ch]">
-            Toda la gestión operativa —listas de chequeo, recepción de
-            mercancía, controles de temperatura, limpieza y seguridad en el
-            trabajo— se hacía a mano en papel. Se perdía información, no había
-            visibilidad en tiempo real para decidir y el personal operario y de
-            supervisión cargaba con mucho trabajo administrativo.
+            Las listas de chequeo, la recepción de mercancía, los controles de temperatura y de
+            limpieza se llenaban a mano en papel. Consultar un registro anterior o saber qué faltaba
+            por revisar dependía de encontrar la hoja.
           </p>
         </Block>
 
-        <Block title="Mi rol">
-          <p className="text-lg leading-relaxed max-w-[65ch] text-fg-soft">
-            Lideré la investigación y el levantamiento de requisitos, trabajando
-            directamente con las personas involucradas:
+        <Block title="Cómo lo construí">
+          <div className="space-y-4 max-w-[65ch] text-lg leading-relaxed">
+            <p>
+              Entrevisté al Chef, al Sub-Chef y al Analista de Operaciones para entender cómo se
+              diligenciaba cada formato en los turnos, y revisé con Desarrollo Organizacional los
+              lineamientos que la versión digital debía cumplir.
+            </p>
+            <p>
+              Partí de la plantilla interna del club, que ya traía el inicio de sesión con Microsoft,
+              los timeouts de sesión y la política de seguridad de contenido; esa parte no la
+              escribí yo. Sobre ella construí el catálogo de formularios, el modelo de datos, el
+              formulario dinámico, el historial y el flujo de verificación. Parte del código lo
+              escribí yo y parte lo generé con DeepSeek y con Kiro, un editor con agente de IA.
+            </p>
+          </div>
+          <p className="mt-8 text-fg-soft">
+            <span className="text-fg font-semibold">Stack:</span> Next.js, TypeScript, Prisma,
+            PostgreSQL, Auth.js con Microsoft Entra ID, Tailwind CSS.
           </p>
-          <div className="mt-8 grid sm:grid-cols-2 gap-8">
-            {stakeholders.map((item) => (
-              <div key={item.title} className="border-t-2 border-line-strong pt-4">
-                <h3 className="font-bold text-lg">{item.title}</h3>
-                <p className="mt-2 text-fg-soft leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
+        </Block>
+
+        <Block title="Decisiones técnicas">
+          <div className="space-y-10">
+            {decisions.map((d) => (
+              <article key={d.title} className="max-w-[70ch]">
+                <h3 className="text-xl font-bold tracking-tight">{d.title}</h3>
+                <p className="mt-3 leading-relaxed">{d.what}</p>
+                <dl className="mt-4 grid sm:grid-cols-2 gap-4">
+                  <div className="rounded-2xl border border-line p-4">
+                    <dt className="text-sm font-semibold text-fg-soft">Alternativa descartada</dt>
+                    <dd className="mt-1 leading-relaxed">{d.alternative}</dd>
+                  </div>
+                  <div className="rounded-2xl border border-line p-4">
+                    <dt className="text-sm font-semibold text-fg-soft">Lo que cuesta</dt>
+                    <dd className="mt-1 leading-relaxed">{d.tradeoff}</dd>
+                  </div>
+                </dl>
+              </article>
             ))}
           </div>
         </Block>
 
-        <Block title="La solución">
-          <p className="text-lg leading-relaxed max-w-[65ch] text-fg-soft">
-            Diseñé y desarrollé una aplicación web responsiva con control de
-            acceso por roles.
-          </p>
-          <dl className="mt-8 space-y-6 max-w-[65ch]">
-            <div>
-              <dt className="font-bold">Frontend</dt>
-              <dd className="mt-1 text-fg-soft leading-relaxed">
-                Next.js y TypeScript, con una interfaz pensada para el ritmo
-                rápido de la cocina y plantillas por área: Cocina Principal,
-                Panadería, Steward y Cafeterías.
-              </dd>
-            </div>
-            <div>
-              <dt className="font-bold">Backend y base de datos</dt>
-              <dd className="mt-1 text-fg-soft leading-relaxed">
-                Next.js API Routes y Prisma ORM sobre PostgreSQL, con tipado
-                estricto, validación en el servidor y relaciones eficientes.
-              </dd>
-            </div>
-          </dl>
-
-          <h3 className="mt-12 font-bold text-lg pb-3 border-b-2 border-line-strong">
-            Módulos
-          </h3>
-          <ul>
-            {modules.map((m) => (
-              <li
-                key={m.title}
-                className="py-4 border-b border-line grid sm:grid-cols-[14rem_1fr] gap-1 sm:gap-6"
-              >
-                <span className="font-semibold">{m.title}</span>
-                <span className="text-fg-soft">{m.description}</span>
+        <Block title="Qué haría distinto">
+          <ul className="space-y-3 max-w-[65ch] leading-relaxed">
+            {improve.map((i) => (
+              <li key={i} className="flex gap-3">
+                <span className="mt-[0.7em] h-px w-3 shrink-0 bg-fg-soft" />
+                {i}
               </li>
             ))}
           </ul>
-
-          <p className="mt-8 text-fg-soft">
-            <span className="text-fg font-semibold">Stack:</span>{" "}
-            {techStack.join(", ")}.
-          </p>
-        </Block>
-
-        <Block title="Resultados">
-          <div className="grid sm:grid-cols-3 gap-4">
-            {results.map((result) => (
-              <div
-                key={result.title}
-                className="bg-green-wash border border-green/25 rounded-2xl p-5"
-              >
-                <h3 className="font-bold text-green text-lg">{result.title}</h3>
-                <p className="mt-2 text-fg leading-relaxed">
-                  {result.description}
-                </p>
-              </div>
-            ))}
-          </div>
         </Block>
 
         <div className="mt-6 bg-plum border border-line-strong rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <p className="text-2xl sm:text-3xl font-bold tracking-tight max-w-lg leading-tight">
-            ¿Quieres algo así para tu organización?
+            Este código es privado. El de Mesa Viva está abierto, con sus tests.
           </p>
-          <Link
-            href="/#contacto"
-            className="self-start md:self-auto font-semibold text-white bg-violet hover:bg-violet-dark px-6 py-3 rounded-full transition-colors"
-          >
-            Hablemos de tu proyecto
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <TrackedLink
+              href={FEATURED_REPO.url}
+              event="click_repo_mesa_viva"
+              eventProps={{ from: "caso_cocina" }}
+              className="inline-flex items-center gap-2 font-semibold text-white bg-violet hover:bg-violet-dark px-6 py-3 rounded-full transition-colors"
+            >
+              Ver Mesa Viva
+              <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+            </TrackedLink>
+            <TrackedLink
+              href={`mailto:${EMAIL}`}
+              event="click_email"
+              eventProps={{ from: "caso_cocina" }}
+              className="inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-full border border-line-strong hover:border-lilac transition-colors"
+            >
+              <Mail className="w-4 h-4" aria-hidden="true" />
+              Escríbeme
+            </TrackedLink>
+          </div>
         </div>
       </div>
     </main>
